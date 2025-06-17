@@ -12,11 +12,15 @@ def get_days_from_today(date_str):
 # print(get_days_from_today("2025-06-13"))
 
 
-def get_numbers_ticket(min, max, quantity):
-    numbers = random.sample(range(min, max), quantity)
+def get_numbers_ticket(start, end, quantity):
+    if quantity > (end - start + 1):
+        print("Кількість чисел більша за доступний діапазон")
+        return []
+    numbers = random.sample(range(start, end + 1), quantity)
     return numbers
 
 # lottery_numbers = get_numbers_ticket(1, 49, 6)
+lottery_numbers = get_numbers_ticket(10, 11, 6)
 # print("Ваші лотерейні числа:", lottery_numbers)
 
 def normalize_phone(phone_number):
@@ -78,4 +82,4 @@ def get_upcoming_birthdays(users):
 
     return upcoming
 
-    print(get_upcoming_birthdays(users))
+    # print(get_upcoming_birthdays(users))
