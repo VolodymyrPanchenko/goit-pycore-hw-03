@@ -1,3 +1,5 @@
+from pathlib import Path
+
 def total_salary(path):
     total = 0
     count = 0
@@ -10,7 +12,7 @@ def total_salary(path):
                         total += int(row[1])
                         count += 1
                     except ValueError:
-                        continue  # пропускаем строки с некорректной зарплатой 
+                        continue 
         if count > 0:
             average = total // count
         else:
@@ -20,11 +22,10 @@ def total_salary(path):
         print(f"File not found: {path}")
     except IOError as e:
         print(f"I/O error: {e}")
-    return 0, 0  # Возврат по умолчанию при ошибке
+    return 0, 0  
 
-# Вызов
-# total, average = total_salary("emp.txt")
-# print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
+total, average = total_salary("emp.txt")
+print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
 
 def get_cats_info(path):
     cats = []
@@ -37,13 +38,16 @@ def get_cats_info(path):
                         age = int(row[2])
                         cats.append( {"id": row[0], "name": row[1], "age":age})   
                     except ValueError:
-                        continue  # пропускаем строки с некорректной зарплатой 
+                        continue 
         return cats
     except FileNotFoundError:
         print(f"File not found: {path}")
     except IOError as e:
         print(f"I/O error: {e}")
-    return 0, 0  # Возврат по умолчанию при ошибке
+    return [] 
 
-cats_info = get_cats_info("cats_info.txt")
-print(cats_info)
+# cats_info = get_cats_info("cats_info.txt")
+# print(cats_info)
+
+
+
