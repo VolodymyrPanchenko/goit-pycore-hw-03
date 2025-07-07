@@ -20,15 +20,17 @@ def parse_input(user_input):
     return cmd, *args
 
 @input_error
-def add_contact(args, book):
-    # if len(args) < 2:
-    #     return "Please provide both name and phone number."
-    name, phone = args[0], args[1]
-    record = Record(name)
-    record.add_phone(phone)
-    book.add_record(record)
-    # contacts[name] = phone
-    return "Contact added."
+def add_contact(args, book: AddressBook):
+    name, phone, *_ = args
+    record = book.find(name)
+    message = "Contact updated."
+    if record is None:
+        record = Record(name)
+        book.add_record(record)
+        message = "Contact added."
+    if phone:
+        record.add_phone(phone)
+    return message
 
 def get_all_contacts(book):
     if not book.data:

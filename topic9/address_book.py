@@ -15,8 +15,9 @@ class Phone(Field):
     def __init__(self, number):
         validated = self.validate(number)
         super().__init__(validated)
-
-    def validate(self, number):
+    
+    @staticmethod
+    def validate(number):
         # Видаляємо пробіли, якщо є
         cleaned = number.strip()
         
@@ -48,6 +49,12 @@ class Record:
                 phone.value = Phone(new_phone_str).value
                 return
         raise ValueError(f"Phone number '{old_phone_str}' not found in record for {self.name.value}.")
+    def remove_phone(self, phone_str):
+        for phone in self.phones:
+            if phone.value == phone_str:
+                self.phones.remove(phone)
+                return
+        raise ValueError(f"Phone number '{phone_str}' not found in record for {self.name.value}.")
     def find_phone(self, phone_str):
         for phone in self.phones:
             if phone.value == phone_str:
@@ -91,6 +98,7 @@ print(john)  # Виведення: Contact name: John, phones: 1112223333; 55555
 # Пошук конкретного телефону у записі John
 found_phone = john_record.find_phone("5555555555")
 print(f"{john_record.name}: {found_phone}")  # Виведення: 5555555555
-
+john.remove_phone("5555555555")  # Видалення телефону
+print(john)  # Виведення: Contact name: John, phones: 1112223333
 # Видалення запису Jane
 book.delete("Jane")    

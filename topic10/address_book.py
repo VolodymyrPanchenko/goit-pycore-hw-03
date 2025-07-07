@@ -17,7 +17,8 @@ class Phone(Field):
         validated = self.validate(number)
         super().__init__(validated)
 
-    def validate(self, number):
+    @staticmethod
+    def validate(number):
          # Remove spaces, if any
         cleaned = number.strip()
         
@@ -77,6 +78,12 @@ class Record:
             self.phones[index] = new_phone_obj
             return True
         return False
+    def remove_phone(self, phone_str):
+        for phone in self.phones:
+            if phone.value == phone_str:
+                self.phones.remove(phone)
+                return
+        raise ValueError(f"Phone number '{phone_str}' not found in record for {self.name.value}.")
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
